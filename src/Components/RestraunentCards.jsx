@@ -1,8 +1,10 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-const RestraunentCards = ({ Name, Imageid, rating ,location }) => {
+const RestraunentCards = ({Id, Name, Imageid, rating ,location }) => {
   return (
     <div>
+      <Link to={`/menu/${Id}`}>
       <div className="card transition-transform hover:scale-110 w-[20vw] h-[60vh] flex  flex-col items-center bg-white shadow-lg rounded-lg overflow-hidden my-4 mx-4">
         <div className="name">
           <p className='text-[1.5vw] text-center font-bold'>{Name}</p>
@@ -15,6 +17,7 @@ const RestraunentCards = ({ Name, Imageid, rating ,location }) => {
           <h6>{location}</h6>
         </div>
       </div>
+      </Link>
     </div>
   )
 }

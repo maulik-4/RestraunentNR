@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
 
 const Navigation = () => {
     const [LoginBtn,setLoginBtn] = useState("login");
@@ -11,10 +12,10 @@ const Navigation = () => {
     </div>
     <div className="nav_right ">
         <ul className='flex justify-between items-center w-1/2 gap-20'> 
-            <li>Home</li>
-            <li>Menu</li>
-            <li>Services</li>
-            <li>Contact</li>
+            <Link to='/' >Home</Link >
+            <Link>Menu</Link>
+            <Link to='/about'>About us</Link>
+            <Link to='/contact'>Contact</Link>
             <button className='px-3 py-3 bg-blue-400' onClick={()=>{
                 LoginBtn === "login" ? setLoginBtn("Logout") : setLoginBtn("login");
             }}>{LoginBtn}</button>

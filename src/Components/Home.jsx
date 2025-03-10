@@ -43,7 +43,8 @@ const Home = () => {
                     let image = rest.info.cloudinaryImageId;
                     let rating = rest.info.avgRating;
                     let locations = rest.info.areaName;
-                    return <RestraunentCards  Name= {name} Imageid = {image} rating={rating} location={locations} key ={index}  />
+                    let id = rest.info.id;   
+                    return <RestraunentCards Id={id}  Name= {name} Imageid = {image} rating={rating} location={locations} key ={index}  />
                 })
             }
         </div></>

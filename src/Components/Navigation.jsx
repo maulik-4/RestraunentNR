@@ -1,28 +1,55 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Navigation = () => {
-    const [LoginBtn,setLoginBtn] = useState("login");
-  return (
-   <div className='flex justify-between w-full h-10vh px-10 py-3 align-center items-center'>
-    <div className="nav_left">
-      
-            <img className='h-[20vh] w-[10VW] object-contain' src="https://cdn.dribbble.com/userupload/33218438/file/original-cf7fe0d0583e23573b7a1422669c87f0.jpg?resize=1600x1280&vertical=center" alt="" />
-      
-    </div>
-    <div className="nav_right ">
-        <ul className='flex justify-between items-center w-1/2 gap-20'> 
-            <Link to='/' >Home</Link >
-            <Link>Menu</Link>
-            <Link to='/about'>About us</Link>
-            <Link to='/contact'>Contact</Link>
-            <button className='px-3 py-3 bg-blue-400' onClick={()=>{
-                LoginBtn === "login" ? setLoginBtn("Logout") : setLoginBtn("login");
-            }}>{LoginBtn}</button>
-        </ul>
-    </div>
-   </div>
-  )
-}
+  const [LoginBtn, setLoginBtn] = useState("Login");
 
-export default Navigation
+  return (
+    <div className="flex justify-between items-center w-full px-6 py-4">
+      {/* Left Section (Logo) */}
+      <div className="nav_left">
+        <img
+          className="h-[8vh] w-auto object-contain"
+          src="https://cdn.dribbble.com/userupload/33218438/file/original-cf7fe0d0583e23573b7a1422669c87f0.jpg?resize=1600x1280&vertical=center"
+          alt="Logo"
+        />
+      </div>
+
+      {/* Right Section (Navigation Links) */}
+      <div className="nav_right">
+        <ul className="hidden md:flex gap-8 text-lg">
+          <Link className="text-black !no-underline hover:scale-100 transition " to="/">
+            Home
+          </Link>
+          <Link className="text-black !no-underline hover:scale-100 transition ">
+            Menu
+          </Link>
+          <Link
+            className="text-black !no-underline hover:scale-100 transition "
+            to="/about"
+          >
+            About Us
+          </Link>
+          <Link
+            className="text-black !no-underline hover:scale-100 transition "
+            to="/contact"
+          >
+            Contact
+          </Link>
+        </ul>
+      </div>
+
+      {/* Login Button */}
+      <button
+        className="px-4 py-2 bg-blue-500 rounded-lg hover:bg-blue-600"
+        onClick={() => {
+          setLoginBtn(LoginBtn === "Login" ? "Logout" : "Login");
+        }}
+      >
+        {LoginBtn}
+      </button>
+    </div>
+  );
+};
+
+export default Navigation;

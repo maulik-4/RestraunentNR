@@ -1,55 +1,65 @@
-import React, { useState, useEffect } from 'react'
-import Data from '../utils/Data'
+import React, { useState } from 'react';
+import Data from '../utils/Data';
 import RestraunentCards from './RestraunentCards';
-import { data } from 'autoprefixer';
 
 const Home = () => {
-    const [listofrest, setListofrest] = useState(Data);
-    const [search, setSearch] = useState('');
-    const [filteredRest, setfilteredRest] = useState(Data);
+  const [listofrest, setListofrest] = useState(Data);
+  const [search, setSearch] = useState('');
+  const [filteredRest, setFilteredRest] = useState(Data);
 
-   
+  return (
+    <>
+      {/* Search & Filter Section */}
+      <div className="flex flex-col md:flex-row gap-4 w-full justify-center items-center py-4">
+        <button
+          className="bg-blue-500 text-white px-4 py-2 rounded-md text-sm md:text-lg hover:bg-blue-600"
+          onClick={() => {
+            let reqList = listofrest.filter((rest) => rest.info.avgRating > 4.5);
+            setFilteredRest(reqList);
+          }}
+        >
+          Top Rated Restaurants
+        </button>
 
-    return (
-      <>
-      <div className='flex flex-row gap-10  w-full h-10vh justify-center items-center'>
-      <div className="filter">
-        <button className='h-10v w-10vw' onClick={
-            ()=>{
-                let reqList = listofrest.filter((rest) =>{
-                    return rest.info.avgRating > 4.5;
-                })
-                setfilteredRest(reqList);
-
-            }
-        }> <h6 className='text-[10vw]'>Top Rated Restraunents</h6></button>
+        <div className="flex flex-col sm:flex-row gap-2">
+          <input
+            type="text"
+            className="border border-gray-400 px-4 py-2 rounded-md w-full sm:max-w-md md:max-w-lg"
+            placeholder="Search Restaurants..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <button
+            className="bg-green-500 text-white px-4 py-2 rounded-md text-sm md:text-lg hover:bg-green-600"
+            onClick={() => {
+              let reqlist = listofrest.filter((rest) =>
+                rest.info.name.toLowerCase().includes(search.toLowerCase())
+              );
+              setFilteredRest(reqlist);
+            }}
+          >
+            Search
+          </button>
+        </div>
       </div>
-      <div className="searchBox">
-        <input type='text' className='h-[5vh] border-black w-[30vw] ' placeholder='search' value={search} onChange={(e) =>{
-            setSearch(e.target.value);
-        }} />
-        <button onClick={() =>{
-            let reqlist = listofrest.filter((rest) =>{
-                return rest.info.name.toLowerCase().includes(search.toLowerCase());
-            })
-            setfilteredRest(reqlist);
-        }} > Search</button>
-      </div>
-      </div>
-      <div className='w-full h-full flex flex-wrap justify-center items-center'>
-            {
-                filteredRest.map((rest, index) => {
-                    let name = rest.info.name;
-                    let image = rest.info.cloudinaryImageId;
-                    let rating = rest.info.avgRating;
-                    let locations = rest.info.areaName;
-                    let id = rest.info.id;   
-                    return <RestraunentCards Id={id}  Name= {name} Imageid = {image} rating={rating} location={locations} key ={index}  />
-                })
-            }
-        </div></>
-        
-    )
-}
 
-export default Home
+      {/* Restaurants Grid */}
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-4">
+        {filteredRest.map((rest, index) => {
+          return (
+            <RestraunentCards
+              Id={rest.info.id}
+              Name={rest.info.name}
+              Imageid={rest.info.cloudinaryImageId}
+              rating={rest.info.avgRating}
+              location={rest.info.areaName}
+              key={index}
+            />
+          );
+        })}
+      </div>
+    </>
+  );
+};
+
+export default Home;

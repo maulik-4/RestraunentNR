@@ -1,25 +1,32 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-const RestraunentCards = ({Id, Name, Imageid, rating ,location }) => {
+const RestraunentCards = ({ Id, Name, Imageid, rating, location }) => {
   return (
-    <div>
-      <Link to={`/menu/${Id}`}>
-      <div className="card transition-transform hover:scale-110 w-[20vw] h-[60vh] flex  flex-col items-center bg-white shadow-lg rounded-lg overflow-hidden my-4 mx-4">
-        <div className="name">
-          <p className='text-[1.5vw] text-center font-bold'>{Name}</p>
-        </div>
-        <img  className="h-[40vh] w-[20vw] object-contain" src={"https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/" + Imageid} />
-        <div className="rating">
-          Rating is : {rating}
-        </div>
-        <div className="location">
-          <h6>{location}</h6>
+    <Link className='text-black !no-underline' to={`/menu/${Id}`}>
+      <div className="bg-white shadow-md rounded-lg overflow-hidden w-full sm:w-[300px] p-4 transition-transform hover:scale-105">
+      {/* Restaurant Image */}
+      <img
+       src={"https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/" + Imageid}
+        alt={Name}
+        className="w-full h-40 sm:h-48 object-cover rounded-md"
+      />
+
+      {/* Restaurant Details */}
+      <div className="mt-3">
+        <h3 className="text-lg font-semibold text-gray-800">{Name}</h3>
+        <p className="text-sm text-gray-600">{location}</p>
+
+        {/* Rating */}
+        <div className="mt-2 flex items-center gap-2">
+          <span className="bg-green-500 text-white px-2 py-1 text-xs rounded-md">
+            ⭐ {rating}
+          </span>
         </div>
       </div>
-      </Link>
     </div>
-  )
-}
+    </Link>
+  );
+};
 
-export default RestraunentCards
+export default RestraunentCards;

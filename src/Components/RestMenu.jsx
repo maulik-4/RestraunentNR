@@ -22,7 +22,6 @@ const RestMenu = () => {
         }
     };
 
-  
     const restaurantCard = restMenuD?.cards?.find(
         (item) => item.card?.card?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.Restaurant"
     );
@@ -37,11 +36,8 @@ const RestMenu = () => {
 
     return (
         <div className="container mx-auto p-6">
-    
             <h1 className="text-3xl font-bold text-center mb-6">{restaurantName}</h1>
-            <h2 className="text-3xl font-bold text-center mb-6 ">{restaurantCity}</h2>
- 
-
+            <h2 className="text-3xl font-bold text-center mb-6">{restaurantCity}</h2>
             {menuCards?.map((menu, index) => {
                 const { title, itemCards } = menu.card?.card || {};
                 return (
@@ -51,9 +47,10 @@ const RestMenu = () => {
                             {itemCards?.map((item) => {
                                 const { id, name, price, description } = item.card?.info || {};
                                 return (
-                                    <li key={id} className="border p-4 rounded-lg shadow-sm">
-                                        <p className="text-lg font-medium">{name} - ₹{price ? price / 100 : "N/A"}</p>
-                                        <p className="text-gray-500">{description || "No description available"}</p>
+                                    <li key={id} className="border p-2 rounded">
+                                        <h3 className="text-xl font-bold">{name}</h3>
+                                        <p>{description}</p>
+                                        <p className="font-semibold">Price: {price}</p>
                                     </li>
                                 );
                             })}

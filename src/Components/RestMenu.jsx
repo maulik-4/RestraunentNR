@@ -1,34 +1,20 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import useFetchMenu from "../utils/useFetchMenu"; // Adjust the path as needed
 
 const RestMenu = () => {
-    const [restMenuD, setRestMenuD] = useState(null);
     const { id } = useParams();
+    const { menuData, loading, error } = useFetchMenu(id);
 
-    useEffect(() => {
-        fetchMenu();
-    }, []);
+    if (loading) return <p className="text-center text-lg">Loading...</p>;
+    if (error) return <p className="text-center text-lg text-red-500">Error: {error}</p>;
 
-    const fetchMenu = async () => {
-        try {
-            const response = await fetch(
-                `https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=28.63270&lng=77.21980&restaurantId=${id}&catalog_qa=undefined&submitAction=ENTER`
-            );
-            const json = await response.json();
-            console.log("API Response:", json); 
-            setRestMenuD(json.data);
-        } catch (error) {
-            console.error("Error fetching menu:", error);
-        }
-    };
-
-    const restaurantCard = restMenuD?.cards?.find(
+    const restaurantCard = menuData?.cards?.find(
         (item) => item.card?.card?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.Restaurant"
     );
     const restaurantName = restaurantCard?.card?.card?.info?.name || "Restaurant Name Not Available";
     const restaurantCity = restaurantCard?.card?.card?.info?.city;
     
-    const menuCards = restMenuD?.cards?.find(
+    const menuCards = menuData?.cards?.find(
         (item) => item.groupedCard
     )?.groupedCard?.cardGroupMap?.REGULAR?.cards?.filter(
         (card) => card.card?.card?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"

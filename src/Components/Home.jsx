@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
 import Data from '../utils/Data';
 import RestraunentCards from './RestraunentCards';
+import useOnlineStatus from '../utils/useOnlineStatus';
 
 const Home = () => {
   const [listofrest, setListofrest] = useState(Data);
   const [search, setSearch] = useState('');
   const [filteredRest, setFilteredRest] = useState(Data);
+  const isonline = useOnlineStatus();
+  if(isonline === false){
+    return (<h1>Its seems like your internet is off... Pls check your internet connection</h1>)
+  }
 
   return (
     <>

@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import Data from '../utils/Data';
-import RestraunentCards from './RestraunentCards';
+import RestraunentCards, { IsopenRestraunent } from './RestraunentCards';
 import useOnlineStatus from '../utils/useOnlineStatus';
 
 const Home = () => {
   const [listofrest, setListofrest] = useState(Data);
   const [search, setSearch] = useState('');
   const [filteredRest, setFilteredRest] = useState(Data);
+
+  const IsOpenrest = IsopenRestraunent(RestraunentCards);
+  
   const isonline = useOnlineStatus();
-  if(isonline === false){
-    return (<h1>Its seems like your internet is off... Pls check your internet connection</h1>)
+  if (isonline === false) {
+    return (<h1>It seems like your internet is off... Please check your internet connection</h1>);
   }
 
   return (
@@ -51,15 +54,28 @@ const Home = () => {
       {/* Restaurants Grid */}
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-4">
         {filteredRest.map((rest, index) => {
+          const { id, name, cloudinaryImageId, avgRating, areaName, isOpen } = rest.info;
+          console.log(isOpen);
           return (
-            <RestraunentCards
-              Id={rest.info.id}
-              Name={rest.info.name}
-              Imageid={rest.info.cloudinaryImageId}
-              rating={rest.info.avgRating}
-              location={rest.info.areaName}
-              key={index}
-            />
+            <React.Fragment key={index}>
+              {isOpen ? (
+                <IsOpenrest
+                  Id={id}
+                  Name={name}
+                  Imageid={cloudinaryImageId}
+                  rating={avgRating}
+                  location={areaName}
+                />
+              ) : (
+                <RestraunentCards
+                  Id={id}
+                  Name={name}
+                  Imageid={cloudinaryImageId}
+                  rating={avgRating}
+                  location={areaName}
+                />
+              )}
+            </React.Fragment>
           );
         })}
       </div>

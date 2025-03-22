@@ -14,6 +14,7 @@ class UserClass extends React.Component {
         try {
             const res = await fetch('https://api.github.com/users/maulik-4');
             const data = await res.json();  
+            console.log(data);
             this.setState({ userData: data });
         } catch (error) {
             console.error("Error fetching user data:", error);
@@ -22,8 +23,6 @@ class UserClass extends React.Component {
 
     render() {
         const {userData } = this.state;
-
-
         return (
             <div>
                

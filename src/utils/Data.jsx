@@ -38,7 +38,7 @@ const data =  [
                           }
                         ]
                       },
-                      "isOpen": true,
+                      "isOpen": false,
                       "type": "F",
                       "badgesV2": {
                         "entityBadges": {
